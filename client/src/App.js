@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios'
 import {API} from './env'
+import Date from './Date/Date'
+import IntroBar from './IntroBar/IntroBar'
+import FilterBar from './FilterBar/FilterBar'
 
 class App extends Component {
   constructor(props){
@@ -23,8 +26,10 @@ class App extends Component {
   render() {
     console.log(this.state.meetups)
     return (
-      <div className="App">
-        <h1>Hi</h1>
+      <div>
+        <IntroBar/>
+        <FilterBar/>
+        <Date/>
       </div>
     );
   }
