@@ -24,12 +24,11 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.meetups)
     return (
       <div>
         <IntroBar/>
         <FilterBar/>
-        <Date/>
+        <Date meetups={this.state.meetups}/>
       </div>
     );
   }
