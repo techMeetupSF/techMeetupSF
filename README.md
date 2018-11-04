@@ -4,14 +4,13 @@ At TechMeetupSF, we believe that the quality of catered food at tech meetups is 
 
 ![Users](https://res.cloudinary.com/dlpclqzwk/image/upload/v1541366472/Selection_007_ztiql3.png) 
 
-We would like to thank you for your support.  Please send feedback to Niko.
+We thank you for your support.  Please send feedback to Niko.
 
 ### Use techmeetupSF.com to:
 
 + Find High Quality Tech Conversation
 + Network with companies who want to hire NOW!
-+ Find the BEST catered food in San Francisco (Hint: What do you think about companies who care about their perception at a tech converence?)
-
++ Find the BEST catered food in San Francisco
 
 ### Contributors 
 
