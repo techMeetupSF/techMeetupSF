@@ -18,6 +18,6 @@ We thank you for your support.  Please send feedback to Niko.
 
 ### Contributors 
 
-- Niko Skoularikis (Github)[https://github.com/niko79542]
-- Ron Lapushner (Github)[https://github.com/Ronll]
-- Wai Ka Wong (Github)[https://github.com/wongsitu]
+- Niko Skoularikis [Github(https://github.com/niko79542)
+- Ron Lapushner [Github](https://github.com/Ronll)
+- Wai Ka Wong [Github](https://github.com/wongsitu)
