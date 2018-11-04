@@ -4,7 +4,7 @@
 
 ### Reason for Building 
 
-At [TechMeetupSF](www.techmeetupsf.com), we believe that the quality of catered food at tech meetups is indicative of what it is like to work at that company.  We think you do too.  Here is the trend of unique non-bot users over the past year.
+At [TechMeetupSF](www.techmeetupsf.com), we believe that the quality of catered food at tech meetups is indicative of what it is like to work at that company.  We think you do too.  Here is the trend of unique non-bot users over the past year as of Nov 4th 2018.
 
 ![Users](https://res.cloudinary.com/dlpclqzwk/image/upload/v1541366472/Selection_007_ztiql3.png) 
 
@@ -18,6 +18,6 @@ We thank you for your support.  Please send feedback to Niko.
 
 ### Contributors 
 
-- Niko Skoularikis [Github(https://github.com/niko79542)
+- Niko Skoularikis [Github](https://github.com/niko79542)
 - Ron Lapushner [Github](https://github.com/Ronll)
 - Wai Ka Wong [Github](https://github.com/wongsitu)
