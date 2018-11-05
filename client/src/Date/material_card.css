@@ -4,9 +4,13 @@
   cursor: inherit;
 }
 
+.padded {
+  padding: 0 15px;
+}
+
 .material_card {
-  min-width: 375px;
-  max-width: 375px;
+  min-width: 345px;
+  max-width: 345px;
 }
 
 .material_height {
