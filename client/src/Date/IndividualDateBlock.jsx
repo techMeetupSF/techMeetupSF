@@ -22,8 +22,8 @@ export default ({events}) => {
       console.log(events[0])
     }
       <DateTitle mmdd={events[0].MMDD} dayofWeek={events[0].dayofWeek} />
-      <div className='event_parent'>
-        <EventList events={events} />
+      <div className='event_parent max_width'>
+        <EventList events={events} className='max_width' />
       </div>
     </div>
   )

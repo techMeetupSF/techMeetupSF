@@ -1,4 +1,8 @@
 .event_parent {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.max_width {
+  width: 100vw;
 }
