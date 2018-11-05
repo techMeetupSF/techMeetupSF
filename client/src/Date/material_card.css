@@ -6,9 +6,5 @@
 
 .material_card {
   width: 400px;
-}
-
-.event_parent {
-  display: flex;
-  flex-direction: row;
+  height: 250px;
 }
