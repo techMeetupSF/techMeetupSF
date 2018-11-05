@@ -42,7 +42,7 @@ class App extends Component {
 
   render() {
     return (
-      </div>
+      <div>
         <IntroBar/>
         <FilterBar/>
         <Date eventsByDate={this.state.eventsByDate}/>
