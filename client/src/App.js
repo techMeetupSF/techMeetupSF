@@ -6,13 +6,13 @@ import Date from './Date/Date';
 import IntroBar from './IntroBar/IntroBar';
 import FilterBar from './FilterBar/FilterBar';
 
-import parseTimeIntoDate from '../helpers';
+import { parseTimeIntoDate } from './helpers/meetup_service';
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-        meetups: [],
+        eventsByDate: [],
     };
   }
 
@@ -24,36 +24,28 @@ class App extends Component {
           const events = response.data.results;
           const eventsByTime = {};
           for (const e of events) {
-            let MMDD = 
+            const { MMDD, dayofWeek, timeStamp } = parseTimeIntoDate(e.time);
+            e.dayofWeek = dayofWeek;
+            e.timeStamp = timeStamp;
+            eventsByTime[MMDD] = eventsByTime[MMDD] || [];
+            eventsByTime[MMDD].push(e);
           }
-          // each event has a time field in milliseconds.  It is called ... events[0].time?
-          // This needs to be seperated into MMDD.
-          // The new setState mechanism should have ...
-
-          // ==>> React State <<===
-          events: {
-            MMDD: {
-              {EVENT},{EVENT},{EVENT}
-            },
-            MMDD + 1: {
-              {EVENT},{EVENT},{EVENT}
-            }
-          }
-          //
+          return eventsByTime;
         }
 
+
         this.setState({
-          meetups: response.data.results
+          eventsByDate: parseResults(response)
         })
       })
   }
 
   render() {
     return (
-      <div>
+      </div>
         <IntroBar/>
         <FilterBar/>
-        <Date meetups={this.state.meetups}/>
+        <Date eventsByDate={this.state.eventsByDate}/>
       </div>
     );
   }
