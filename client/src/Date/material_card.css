@@ -1,0 +1,14 @@
+.not_link {
+  color: inherit;
+  text-decoration: inherit;
+  cursor: inherit;
+}
+
+.material_card {
+  width: 400px;
+}
+
+.event_parent {
+  display: flex;
+  flex-direction: row;
+}
