@@ -5,6 +5,10 @@
 }
 
 .material_card {
-  width: 400px;
-  height: 250px;
+  min-width: 375px;
+  max-width: 375px;
+}
+
+.material_height {
+  min-height: 200px;
 }

@@ -17,7 +17,6 @@ class MaterialCard extends Component {
     const event = this.props.event;
     const organizer = event.group.name;
     const eventName = event.name;
-    const description = organizer + " hosts " + eventName + ".";
 
     const rsvpCount = event.yes_rsvp_count;
     const memberName = event.group.who;
@@ -26,11 +25,12 @@ class MaterialCard extends Component {
     const venue = event.venue || '';
     const hostCompany =  venue.name || 'Unknown Host';
     const timeStamp = event.timeStamp;
-    const hostPlusTime = hostCompany + " @ " + timeStamp;
+    const hostPlusTime = eventName + " @ " + timeStamp;
+    const description = 'at ' + hostCompany;
     return (
       <a href={event.event_url} className='not_link'>
         <Card className='material_card'>
-           <CardActionArea>
+           <CardActionArea className='material_height'>
              <CardContent>
                <Typography gutterBottom variant="h5" component="h2">
                  {hostPlusTime}
