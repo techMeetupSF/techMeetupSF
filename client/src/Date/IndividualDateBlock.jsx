@@ -2,9 +2,9 @@ import React from 'react';
 import './individual_date_block.css';
 import MaterialCard from './MaterialCard';
 
-const DateTitle = ({mmdd, dayofWeek}) => (
-  <div>
-    {dayofWeek} {mmdd}
+const DateTitle = ({dateStamp}) => (
+  <div className='date_header'>
+    {dateStamp.toUpperCase()}
   </div>
 );
 
@@ -21,7 +21,7 @@ export default ({events}) => {
     {
       console.log(events[0])
     }
-      <DateTitle mmdd={events[0].MMDD} dayofWeek={events[0].dayofWeek} />
+      <DateTitle dateStamp={events[0].dateStamp} />
       <div className='event_parent max_width'>
         <EventList events={events} className='max_width' />
       </div>

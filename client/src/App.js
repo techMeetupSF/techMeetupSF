@@ -17,16 +17,17 @@ class App extends Component {
   }
 
   componentDidMount = () =>{
-    axios.get(`https://api.meetup.com/2/open_events?key=${API}&photo-host=public&category=34&status=upcoming&page=3&zip=94102&radius=5&only=name,group.who,group.name,time,event_url,yes_rsvp_count,venue.name,description,venue.address_1,group_topics`)
+    axios.get(`https://api.meetup.com/2/open_events?key=${API}&photo-host=public&category=34&status=upcoming&page=30&zip=94102&radius=5&only=name,group.who,group.name,time,event_url,yes_rsvp_count,venue.name,description,venue.address_1,group_topics`)
       .then(response =>{
 
         const parseResults = (response) => {
           const events = response.data.results;
           const eventsByTime = {};
           for (const e of events) {
-            const { MMDD, dayofWeek, timeStamp } = parseTimeIntoDate(e.time);
+            const { MMDD, dayofWeek, timeStamp, dateStamp } = parseTimeIntoDate(e.time);
             e.dayofWeek = dayofWeek;
             e.timeStamp = timeStamp;
+            e.dateStamp = dateStamp;
             eventsByTime[MMDD] = eventsByTime[MMDD] || [];
             eventsByTime[MMDD].push(e);
           }

@@ -23,7 +23,9 @@ class MaterialCard extends Component {
     const hostCompany =  venue.name || null;
     const timeStamp = event.timeStamp;
 
-    const timeAndLocation = (hostCompany ? hostCompany + " at " + timeStamp : "at " + timeStamp);
+    const hostAndVenue = (hostCompany ? hostCompany + " hosts " + organizer : organizer);
+
+    const timeAndLocation = hostAndVenue + " at " + timeStamp;
     return (
       <a href={event.event_url} className='not_link padded'>
         <Card className='material_card'>
