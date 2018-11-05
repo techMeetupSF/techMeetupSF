@@ -7,17 +7,10 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-const styles = {
-  card: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 140,
-  },
-};
+import './material_card.css';
 
 class MaterialCard extends Component {
-  constructor(...props) {
+  constructor(props) {
     super(props);
   }
   render() {
@@ -35,7 +28,8 @@ class MaterialCard extends Component {
     const timeStamp = event.timeStamp;
     const hostPlusTime = hostCompany + " @ " + timeStamp;
     return (
-      <Card className={styles.card}>
+      <a href={event.event_url} className='not_link'>
+        <Card className='material_card'>
            <CardActionArea>
              <CardContent>
                <Typography gutterBottom variant="h5" component="h2">
@@ -50,6 +44,7 @@ class MaterialCard extends Component {
              </CardContent>
            </CardActionArea>
          </Card>
+       </a>
     );
   }
 }

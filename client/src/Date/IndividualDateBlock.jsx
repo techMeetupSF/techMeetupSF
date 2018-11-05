@@ -1,5 +1,5 @@
 import React from 'react';
-import './IndividualDateBlock.css';
+import './individual_date_block.css';
 import MaterialCard from './MaterialCard';
 
 const DateTitle = ({mmdd, dayofWeek}) => (
@@ -22,7 +22,9 @@ export default ({events}) => {
       console.log(events[0])
     }
       <DateTitle mmdd={events[0].MMDD} dayofWeek={events[0].dayofWeek} />
-      <EventList events={events} />
+      <div className='event_parent'>
+        <EventList events={events} />
+      </div>
     </div>
   )
 };

@@ -7,7 +7,7 @@ const createMMDD = (dateStamp) => {
 }
 
 const createTime = (dateStamp) => {
-  return dateStamp.toLocaleDateString([], {hour: '2-digit', minute:'2-digit'});
+  return dateStamp.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
 }
 
 export const parseTimeIntoDate = (milliseconds) => {
