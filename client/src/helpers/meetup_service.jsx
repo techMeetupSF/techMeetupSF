@@ -10,11 +10,16 @@ const createTime = (dateStamp) => {
   return dateStamp.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
 }
 
+const createLongFormDate = (dateStamp) => {
+  return dateStamp.toLocaleDateString([], {weekday: 'long', month: 'long', day: '2-digit'});
+}
+
 export const parseTimeIntoDate = (milliseconds) => {
   const date = new Date(milliseconds);
   return {
     dayofWeek: dayofWeek(date),
     MMDD: createMMDD(date),
     timeStamp: createTime(date),
+    dateStamp: createLongFormDate(date),
   };
 }
