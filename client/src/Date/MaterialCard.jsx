@@ -5,6 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { API } from '../env';
 import FoodChip from './FoodChip/FoodChip';
+import MaterialCardText from './MaterialCardText/MaterialCardText';
 
 import './material_card.css';
 
@@ -30,28 +31,19 @@ class MaterialCard extends Component {
 
     const rsvpCount = event.yes_rsvp_count;
     const memberName = event.group.who;
-    const numberGoing = rsvpCount + " " + memberName + " going";
+    const numberGoing = rsvpCount + " " + memberName + " going at " + event.timeStamp;
 
     const venue = event.venue || '';
     const hostCompany =  venue.name || null;
-    const timeStamp = event.timeStamp;
     return (
       <a href={event.event_url} className='not_link padded'>
         <Card className='material_card'>
            <CardActionArea className='material_height'>
              <CardContent>
-               <Typography component="h5" className="group_name">
-                {organizer.toUpperCase()}
-               </Typography>
-               <Typography gutterBottom variant="h5" component="h2">
-                 {eventName}
-               </Typography>
-               <Typography component="h5" className="sub_details">
-                {hostCompany}
-               </Typography>
-               <Typography component="p">
-                 {numberGoing}
-               </Typography>
+               <MaterialCardText text={organizer.toUpperCase()} styleName={'groupName'} />
+               <MaterialCardText text={eventName} styleName={'bigText'} />
+               <MaterialCardText text={hostCompany} styleName={'groupName'}/>
+               <MaterialCardText text={numberGoing} styleName={'subDetails'}/>
              </CardContent>
              <div className="food_chips">
                <FoodChip />
