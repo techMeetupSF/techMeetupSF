@@ -6,6 +6,7 @@
 
 .padded {
   padding: 0 7.5px;
+  padding-bottom: 7.5px;
 }
 
 .material_card {
@@ -13,6 +14,27 @@
   max-width: 345px;
 }
 
+.group_name {
+  color: rgba(0,0,0,.54);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 2;
+}
+
+.sub_details {
+  color: rgba(0,0,0,.54);
+  font-size: 16px;
+}
+
+
 .material_height {
   min-height: 200px;
+  padding-bottom: 20px;
+}
+
+@media (max-width: 500px) {
+
+  .material_card {
+    width: 90%;
+  }
 }
