@@ -3,6 +3,12 @@
   text-decoration: inherit;
   cursor: inherit;
 }
+.food_chips {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
 
 .padded {
   padding: 0 7.5px;
@@ -10,7 +16,7 @@
 }
 
 .material_card {
-  min-width: 345px;
+  min-width: 350px;
   max-width: 345px;
 }
 
@@ -35,6 +41,11 @@
 @media (max-width: 500px) {
 
   .material_card {
-    width: 90%;
+    min-width: 95vw;
+  }
+
+  .padded {
+    padding: 0 2.5vw;
+    padding-bottom: 7.5px;
   }
 }

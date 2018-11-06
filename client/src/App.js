@@ -5,6 +5,7 @@ import { API } from './env';
 import Date from './Date/Date';
 import IntroBar from './IntroBar/IntroBar';
 import FilterBar from './FilterBar/FilterBar';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 import { parseTimeIntoDate } from './helpers/meetup_service';
 
@@ -44,6 +45,7 @@ class App extends Component {
   render() {
     return (
       <div className="sf_tech">
+        <CssBaseline />
         <IntroBar/>
         <FilterBar/>
         <Date eventsByDate={this.state.eventsByDate}/>
