@@ -4,6 +4,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { API } from '../env';
+import FoodChip from './FoodChip/FoodChip';
 
 import './material_card.css';
 
@@ -12,15 +13,15 @@ class MaterialCard extends Component {
     super(props);
   }
 
-  componentDidMount = () =>{
-    axios.get(`https://api.meetup.com/2/groups?key=${API}&photo-host=public&group_id=4431242&only=organizer.photo.photo_link`)
-      .then(response =>{
-        const group_photo_url = response.data.results.organizer.photo.photo_link
-        this.setState({
-          eventsByDate: parseResults(response)
-        })
-      })
-  }
+  // componentDidMount = () =>{
+  //   axios.get(`https://api.meetup.com/2/groups?key=${API}&photo-host=public&group_id=4431242&only=organizer.photo.photo_link`)
+  //     .then(response =>{
+  //       const group_photo_url = response.data.results.organizer.photo.photo_link
+  //       this.setState({
+  //         eventsByDate: parseResults(response)
+  //       })
+  //     })
+  // }
 
   render() {
     const event = this.props.event;
@@ -52,6 +53,10 @@ class MaterialCard extends Component {
                  {numberGoing}
                </Typography>
              </CardContent>
+             <div className="food_chips">
+               <FoodChip />
+               <FoodChip />
+             </div>
            </CardActionArea>
          </Card>
        </a>
