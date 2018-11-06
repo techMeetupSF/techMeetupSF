@@ -14,6 +14,7 @@ const styles = theme => ({
     margin: theme.spacing.unit,
     fontWeigt:  600,
     fontSize: '15px',
+    cursor: 'pointer',
   },
 });
 
