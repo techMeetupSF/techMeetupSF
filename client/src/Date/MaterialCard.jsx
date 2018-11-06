@@ -36,7 +36,7 @@ class MaterialCard extends Component {
     const venue = event.venue || '';
     const hostCompany =  venue.name || null;
     return (
-      <a href={event.event_url} className='not_link padded'>
+      <a href={event.event_url} target="_blank" className='not_link padded'>
         <Card className='material_card'>
            <CardActionArea className='material_height'>
              <CardContent>
