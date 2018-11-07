@@ -11,12 +11,12 @@
 
 
 .padded {
-  padding: 0px 30px 17.5px 10px;
+  padding: 0px 30px 30px 10px;
 }
 
 .material_card {
-  min-width: 350px;
-  max-width: 345px;
+  min-width: 480px;
+  max-width: 475px;
 }
 
 .material_height {

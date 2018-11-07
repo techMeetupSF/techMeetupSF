@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
+import './intro_bar.css';
 
 class IntroBar extends Component {
 
-    render(){
+    render() {
         return(
-            <div>
-                <h1>IntroBar</h1>
+            <div className="intro-bar typewriter">
+                Find ... Networking Opportunities.  Tech Conversation.  Free Food.
             </div>
         );
     }
