@@ -66,7 +66,7 @@ class FilterBar extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static" className={ classes.appBar }>
+        <AppBar position="static" primary={true} className={ classes.appBar }>
           <div className="left-logo">
             <div className={ classes.logo }> TECH MEETUP SF </div>
             <Tabs value={value} onChange={this.handleRsvpChange}>
