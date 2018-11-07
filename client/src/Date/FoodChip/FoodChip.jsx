@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
-import classNames from 'classnames';
 
 const styles = theme => ({
   root: {
@@ -17,7 +16,7 @@ const styles = theme => ({
     fontSize: '15px',
     cursor: 'pointer',
     boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
-    color: 'rgba(0, 0, 0, 0.54)',
+    color: 'white',
     lineHeight: '32px',
     paddingLeft: '12px',
     paddingRight: '12px',
@@ -31,6 +30,7 @@ function Chips(props) {
   return (
     <div className={classes.root}>
       <Chip label={tag.toUpperCase()}
+      color={color}
         className={classes.chip} />
     </div>
   );

@@ -3,15 +3,28 @@ import './Date.css'
 
 import IndividualDateBlock from './IndividualDateBlock';
 
+const showSingleEvent = (arr) => {
+  return arr.some(el => {
+    return el.showEvent == true;
+  })
+}
+
 export default ({eventsByDate}) => {
 
   const MMDD = Object.keys(eventsByDate);
+  const nonEmptyMMDDs = [];
+  for (let singleMMDD of MMDD) {
+    if (showSingleEvent(eventsByDate[singleMMDD])) {
+      nonEmptyMMDDs.push(singleMMDD);
+    }
+  }
+
   eventsByDate = eventsByDate || [];
   return (
     <div>
       {
-        MMDD.map((singleMMDD, idx) => {
-          return <IndividualDateBlock key={idx} events={eventsByDate[singleMMDD]} />
+        nonEmptyMMDDs.map((singleMMDD, idx) => {
+            return <IndividualDateBlock key={idx} events={eventsByDate[singleMMDD]} />
         })
       }
     </div>
