@@ -2,18 +2,12 @@ import React, { Component } from 'react';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import { API } from '../env';
 import FoodChip from './FoodChip/FoodChip';
 import MaterialCardText from './MaterialCardText/MaterialCardText';
 
 import './material_card.css';
 
 class MaterialCard extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   // componentDidMount = () =>{
   //   axios.get(`https://api.meetup.com/2/groups?key=${API}&photo-host=public&group_id=4431242&only=organizer.photo.photo_link`)
   //     .then(response =>{
@@ -36,7 +30,7 @@ class MaterialCard extends Component {
     const venue = event.venue || '';
     const hostCompany =  venue.name || null;
     return (
-      <a href={event.event_url} target="_blank" className='not_link padded'>
+      <a href={event.event_url} target="_blank" rel="noopener noreferrer" className='not_link padded'>
         <Card className='material_card'>
            <CardActionArea className='material_height'>
              <CardContent>
