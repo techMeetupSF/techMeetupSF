@@ -12,13 +12,8 @@
 
  const FOOD_ITEMS = [
    'food',
-   'noms',
-   'pizza',
-   'snacks',
-   'drinks',,
+   'not pizza',
    'dinner',
-   'booz',
-   'beverages',
    'not just pizza',
  ];
 
