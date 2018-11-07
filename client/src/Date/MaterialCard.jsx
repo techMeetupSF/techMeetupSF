@@ -31,16 +31,14 @@ class MaterialCard extends Component {
     const hostCompany =  venue.name || null;
 
     let foodType = null;
-    let foodChipColor = null;
+    let foodChipColor = 'primary';
     if (event.hasCateredDinner) {
       foodType = "CATERED DINNER";
-      foodChipColor = 'rgb(207, 224, 252)';
+      foodChipColor = 'secondary';
     } else if (event.hasPizza) {
       foodType = "PIZZA";
-      foodChipColor = 'rgb(255, 231, 153)';
     } else if (event.hasFood) {
       foodType = "FOOD";
-      foodChipColor = 'rgb(219, 251, 183)';
     }
 
     return (
