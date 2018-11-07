@@ -10,7 +10,9 @@ const DateTitle = ({dateStamp}) => (
 
 const EventList = ({events}) => {
   return events.map((event, idx) => {
-    return <MaterialCard key={idx} event={event} />
+    if (event.showEvent) {
+      return <MaterialCard key={idx} event={event} />
+    }
   });
 };
 
