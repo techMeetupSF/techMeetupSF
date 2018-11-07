@@ -13,6 +13,7 @@ const EventList = ({events}) => {
     if (event.showEvent) {
       return <MaterialCard key={idx} event={event} />
     }
+    return '';
   });
 };
 
@@ -20,9 +21,6 @@ const EventList = ({events}) => {
 export default ({events}) => {
   return (
     <div>
-    {
-      console.log(events[0])
-    }
       <DateTitle dateStamp={events[0].dateStamp} />
       <div className='event_parent max_width'>
         <EventList events={events} className='max_width' />
