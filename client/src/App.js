@@ -29,10 +29,21 @@ class App extends Component {
     this.state = {
         eventsByDate: [],
     };
+
+    this.handleRsvpSwitch = this.handleRsvpSwitch.bind(this);
   }
 
+  handleRsvpSwitch(e, value) {
+    e.preventDefault();
+    console.log(e, value);
+    // this.setState({
+    //   someVar: someValue
+    // })
+  }
+
+
   componentDidMount = () => {
-    axios.get(`https://api.meetup.com/2/open_events?key=${API}&photo-host=public&category=34&status=upcoming&page=150&zip=94102&radius=5&only=name,group.who,group.name,time,event_url,yes_rsvp_count,venue.name,description,venue.address_1,group.id`, { crossdomain: true })
+    axios.get(`https://api.meetup.com/2/open_events?key=${API}&photo-host=public&category=34&status=upcoming&page=20&zip=94102&radius=5&only=name,group.who,group.name,time,event_url,yes_rsvp_count,venue.name,description,venue.address_1,group.id`, { crossdomain: true })
       .then(response =>{
 
         const parseResults = (response) => {
@@ -74,7 +85,7 @@ class App extends Component {
           <CssBaseline />
           <MobileIntro />
           <IntroBar/>
-          <FilterBar/>
+          <FilterBar handleRsvpSwitch={this.handleRsvpSwitch}/>
           <Date eventsByDate={this.state.eventsByDate}/>
         </MuiThemeProvider>
       </div>
