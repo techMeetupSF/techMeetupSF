@@ -19,6 +19,7 @@ const theme = createMuiTheme({
     secondary: {
       main: '#80deea',
     },
+    drinks: '#80deea'
   },
 });
 

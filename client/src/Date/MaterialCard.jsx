@@ -29,6 +29,20 @@ class MaterialCard extends Component {
 
     const venue = event.venue || '';
     const hostCompany =  venue.name || null;
+
+    let foodType = null;
+    let foodChipColor = null;
+    if (event.hasCateredDinner) {
+      foodType = "CATERED DINNER";
+      foodChipColor = 'rgb(207, 224, 252)';
+    } else if (event.hasPizza) {
+      foodType = "PIZZA";
+      foodChipColor = 'rgb(255, 231, 153)';
+    } else if (event.hasFood) {
+      foodType = "FOOD";
+      foodChipColor = 'rgb(219, 251, 183)';
+    }
+
     return (
       <a href={event.event_url} target="_blank" rel="noopener noreferrer" className='not_link padded'>
         <Card className='material_card'>
@@ -40,8 +54,8 @@ class MaterialCard extends Component {
                <MaterialCardText text={numberGoing} styleName={'subDetails'}/>
              </CardContent>
              <div className="food_chips">
-               <FoodChip />
-               <FoodChip />
+               {foodType && <FoodChip tag={foodType} color={foodChipColor} />}
+               {event.hasDrinks && <FoodChip tag="DRINKS" color={foodChipColor} />}
              </div>
            </CardActionArea>
          </Card>
