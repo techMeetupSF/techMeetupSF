@@ -6,25 +6,39 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 
-function TabContainer(props) {
-  return (
-    <Typography component="div" style={{ padding: 8 * 3 }}>
-      {props.children}
-    </Typography>
-  );
-}
-
-TabContainer.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+import './filter_bar.css';
 
 const styles = theme => ({
   root: {
     backgroundColor: theme.palette.background.paper,
+    paddingBottom: '20px',
   },
-  inner: {
-    flexDirection: 'row',
-  }
+  appBar: {
+    flexDirection: 'column',
+    justifyContent:'space-between',
+    paddingLeft: '20px',
+    [theme.breakpoints.up('sm')]: {
+      flexDirection: 'row',
+      paddingLeft: '0px',
+    },
+    padding: '10px 0',
+  },
+  logo: {
+    fontFamily: "Roboto",
+    fontWeight: 'bold',
+    fontStyle: 'normal',
+    fontSize: '22px',
+    letterSpacing: '1px',
+    padding: '10px 30px 0px 30px',
+    display: 'none',
+    [theme.breakpoints.up('lg')]: {
+      display: 'block',
+    },
+  },
+  filterText: {
+    fontSize: '17px',
+    fontWeight: 'bold',
+  },
 });
 
 class FilterBar extends React.Component {
@@ -47,16 +61,18 @@ class FilterBar extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static" className={classes.inner}>
-          <div className="logo"> Tech Meetup SF </div>
-          <Tabs value={value} onChange={this.handleRsvpChange}>
-            <Tab label="Show 0-30 RSVPs" />
-            <Tab label="Show Only 30+" />
-          </Tabs>
+        <AppBar position="static" className={ classes.appBar }>
+          <div className="left-logo">
+            <div className={ classes.logo }> TECH MEETUP SF </div>
+            <Tabs value={value} onChange={this.handleRsvpChange}>
+            <Tab className={ classes.filterText } label="0-30 RSVPs" />
+            <Tab className={ classes.filterText } label="Only 30+ RSVPs" />
+            </Tabs>
+          </div>
           <Tabs value={value} onChange={this.handleFoodChange}>
-            <Tab label="Show All Meetups" />
-            <Tab label="Find Catered Dinner" />
-            <Tab label="Find Pizza/Dinner/Any Food" />
+            <Tab className={ classes.filterText } label="Include No Food" />
+            <Tab className={ classes.filterText } label="Catered Dinner" />
+            <Tab className={ classes.filterText } label="Any Food" />
           </Tabs>
         </AppBar>
       </div>
