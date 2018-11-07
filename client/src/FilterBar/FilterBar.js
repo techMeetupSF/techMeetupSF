@@ -39,6 +39,11 @@ const styles = theme => ({
     fontSize: '17px',
     fontWeight: 'bold',
   },
+  rightLogo: {
+    [theme.breakpoints.up('lg')]: {
+      paddingRight: '200px',
+    },
+  }
 });
 
 class FilterBar extends React.Component {
@@ -69,7 +74,7 @@ class FilterBar extends React.Component {
             <Tab className={ classes.filterText } label="Only 30+ RSVPs" />
             </Tabs>
           </div>
-          <Tabs value={value} onChange={this.handleFoodChange}>
+          <Tabs className={classes.rightLogo} value={value} onChange={this.handleFoodChange}>
             <Tab className={ classes.filterText } label="Include No Food" />
             <Tab className={ classes.filterText } label="Catered Dinner" />
             <Tab className={ classes.filterText } label="Any Food" />
