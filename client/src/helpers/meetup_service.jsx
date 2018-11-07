@@ -1,13 +1,18 @@
  export const doeshaveDinner = (event) => {
-   const cateredDinner = false;
-   // Github
-   // google
-   // fog city ruby
-   // Uber
-   // SFNode.
-   // Not Just pizza
-   // Not pizza
-   return cateredDinner;
+   const venue = event.venue || {name: ''};
+   const venueName = venue.name.toLowerCase();
+   if (venueName.includes('google')) return true;
+   if (venueName.includes('uber')) return true;
+   if (venueName.includes('github')) return true;
+
+   const organizer = event.group.name.toLowerCase();
+   if (organizer.includes('fog city')) return true;
+   if (organizer.includes('sfnode')) return true;
+
+   if (event.description.includes('not just pizza')) return true;
+   if (event.description.includes('not pizza')) return true;
+
+   return false;
  }
 
  const FOOD_ITEMS = [

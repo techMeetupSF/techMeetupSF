@@ -5,7 +5,7 @@ import IndividualDateBlock from './IndividualDateBlock';
 
 const showSingleEvent = (arr) => {
   return arr.some(el => {
-    return el.showEvent == true;
+    return el.showEvent;
   })
 }
 
