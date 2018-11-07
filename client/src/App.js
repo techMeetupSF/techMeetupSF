@@ -4,6 +4,7 @@ import axios from 'axios';
 import { API } from './env';
 import Date from './Date/Date';
 import IntroBar from './IntroBar/IntroBar';
+import MobileIntro from './IntroBar/MobileIntro';
 import FilterBar from './FilterBar/FilterBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
@@ -46,6 +47,7 @@ class App extends Component {
     return (
       <div className="sf_tech">
         <CssBaseline />
+        <MobileIntro />
         <IntroBar/>
         <FilterBar/>
         <Date eventsByDate={this.state.eventsByDate}/>
