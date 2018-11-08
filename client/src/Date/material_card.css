@@ -32,7 +32,11 @@
   }
 
   .padded {
-    padding: 0 0 17.5px 0;
+    padding: 0 0 3px 0;
+  }
+
+  .food_chips {
+    padding: 0 0 3px 0;
   }
 
   .date_header {
