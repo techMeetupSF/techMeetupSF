@@ -15,7 +15,7 @@ const styles = theme => ({
   appBar: {
     flexDirection: 'column',
     justifyContent:'space-between',
-    paddingLeft: '20px',
+    paddingLeft: '0px',
     [theme.breakpoints.up('sm')]: {
       flexDirection: 'row',
       paddingLeft: '0px',

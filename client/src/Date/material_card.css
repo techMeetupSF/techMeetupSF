@@ -32,6 +32,10 @@
   }
 
   .padded {
-    padding-bottom: 17.5px;
+    padding: 0 0 17.5px 0;
+  }
+
+  .date_header {
+    padding-left: 10px;
   }
 }

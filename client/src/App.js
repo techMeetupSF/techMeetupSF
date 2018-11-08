@@ -9,8 +9,9 @@ import FilterBar from './FilterBar/FilterBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-import { parseTimeIntoDate, doeshaveDinner, doeshaveFood, doeshavePizza, doeshaveDrinks, doeshaveThirtyRsvp } from './helpers/meetup_service';
+import { parseResults } from './helpers/meetup_service';
 import { showWhichEvents } from './helpers/filter_service';
+import { NUM_EVENTS, NUM_EVENTS_SECOND } from './helpers/constants';
 
 
 const theme = createMuiTheme({
@@ -41,6 +42,31 @@ class App extends Component {
     this.handleRsvpSwitch = this.handleRsvpSwitch.bind(this);
   }
 
+  componentDidMount = () => {
+    const firstFetch = `https://api.meetup.com/2/open_events?key=${API}&photo-host=public&category=34&status=upcoming&page=${NUM_EVENTS}&zip=94102&radius=5&only=name,group.who,group.name,time,event_url,yes_rsvp_count,venue.name,description,venue.address_1,group.id`
+    const secondFetch = `https://api.meetup.com/2/open_events?key=${API}&photo-host=public&category=34&status=upcoming&page=${NUM_EVENTS_SECOND}&zip=94102&radius=5&only=name,group.who,group.name,time,event_url,yes_rsvp_count,venue.name,description,venue.address_1,group.id`
+
+    axios.get(firstFetch)
+      .then(response => {
+        const eventsFromWire = response.data.results;
+        const events = parseResults(eventsFromWire);
+
+        this.setState({
+          eventsByDate: events,
+        });
+      })
+    axios.get(secondFetch)
+      .then(responseTwo => {
+        let eventsFromWire = responseTwo.data.results;
+        // eventsFromWire.splice(0, NUM_EVENTS);
+        const events = parseResults(eventsFromWire);
+
+        this.setState({
+          eventsByDate: events,
+        });
+      })
+  }
+
   handleFoodChange(e, showFood) {
     e.preventDefault();
     let eventsByDate = this.state.eventsByDate;
@@ -62,43 +88,6 @@ class App extends Component {
       eventsByDate,
     });
   };
-
-
-  componentDidMount = () => {
-    axios.get(`https://api.meetup.com/2/open_events?key=${API}&photo-host=public&category=34&status=upcoming&page=20&zip=94102&radius=5&only=name,group.who,group.name,time,event_url,yes_rsvp_count,venue.name,description,venue.address_1,group.id`, { crossdomain: true })
-      .then(response =>{
-
-        const parseResults = (response) => {
-          const events = response.data.results;
-          const eventsByTime = {};
-          for (const e of events) {
-            const { MMDD, dayofWeek, timeStamp, dateStamp } = parseTimeIntoDate(e.time);
-            e.dayofWeek = dayofWeek;
-            e.timeStamp = timeStamp;
-            e.dateStamp = dateStamp;
-            eventsByTime[MMDD] = eventsByTime[MMDD] || [];
-
-            e.description = e.description.toLowerCase();
-            e.hasCateredDinner = doeshaveDinner(e);
-            e.hasFood = doeshaveFood(e);
-            e.hasPizza = doeshavePizza(e);
-            e.hasDrinks = doeshaveDrinks(e);
-            e.hasThirtyRsvp = doeshaveThirtyRsvp(e);
-            e.showEvent = e.hasThirtyRsvp;
-
-            eventsByTime[MMDD].push(e);
-          }
-          return eventsByTime;
-        }
-
-        const events = parseResults(response);
-
-
-        this.setState({
-          eventsByDate: events,
-        })
-      })
-  }
 
   render() {
     return (

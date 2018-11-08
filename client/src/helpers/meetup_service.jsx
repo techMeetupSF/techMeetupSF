@@ -1,4 +1,4 @@
- export const doeshaveDinner = (event) => {
+ const doeshaveDinner = (event) => {
    const venue = event.venue || {name: ''};
    const venueName = venue.name.toLowerCase();
    if (venueName.includes('google')) return true;
@@ -15,14 +15,14 @@
    return false;
  }
 
- const FOOD_ITEMS = [
+const FOOD_ITEMS = [
    'food',
    'not pizza',
    'dinner',
    'not just pizza',
  ];
 
-export const doeshaveFood = (event) => {
+const doeshaveFood = (event) => {
   for (const food of FOOD_ITEMS) {
     if (event.description.includes(food)) {
        return true;
@@ -31,15 +31,15 @@ export const doeshaveFood = (event) => {
   return false;
 };
 
-export const doeshavePizza = (event) => {
+const doeshavePizza = (event) => {
    return event.description.includes("pizza");
 
 };
- export const doeshaveDrinks = (event) => {
+const doeshaveDrinks = (event) => {
     return event.description.includes("drink");
 };
 
-export const doeshaveThirtyRsvp = (event) => {
+const doeshaveThirtyRsvp = (event) => {
   return event.yes_rsvp_count > 30;
 };
 
@@ -59,7 +59,7 @@ const createLongFormDate = (dateStamp) => {
   return dateStamp.toLocaleDateString([], {weekday: 'long', month: 'long', day: '2-digit'});
 };
 
-export const parseTimeIntoDate = (milliseconds) => {
+const parseTimeIntoDate = (milliseconds) => {
   const date = new Date(milliseconds);
   return {
     dayofWeek: dayofWeek(date),
@@ -68,3 +68,25 @@ export const parseTimeIntoDate = (milliseconds) => {
     dateStamp: createLongFormDate(date),
   };
 };
+
+export const parseResults = (events) => {
+  const eventsByTime = {};
+  for (const e of events) {
+    const { MMDD, dayofWeek, timeStamp, dateStamp } = parseTimeIntoDate(e.time);
+    e.dayofWeek = dayofWeek;
+    e.timeStamp = timeStamp;
+    e.dateStamp = dateStamp;
+    eventsByTime[MMDD] = eventsByTime[MMDD] || [];
+
+    e.description = e.description.toLowerCase();
+    e.hasCateredDinner = doeshaveDinner(e);
+    e.hasFood = doeshaveFood(e);
+    e.hasPizza = doeshavePizza(e);
+    e.hasDrinks = doeshaveDrinks(e);
+    e.hasThirtyRsvp = doeshaveThirtyRsvp(e);
+    e.showEvent = e.hasThirtyRsvp;
+
+    eventsByTime[MMDD].push(e);
+  }
+  return eventsByTime;
+}
