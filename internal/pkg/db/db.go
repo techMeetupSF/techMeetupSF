@@ -1,57 +1,35 @@
-package main
+package db
 
 import (
 	"database/sql"
 	"log"
 	"os"
 
+	//registers postres for sql db
 	_ "github.com/lib/pq"
 )
 
-type db struct {
+func init() {
+	DB.connect()
+}
+
+//DB holds singlton database instance and functions
+var DB database
+
+//DB holds an instance of the database connection
+type database struct {
 	instance *sql.DB
 }
 
-func (d *db) connect() error {
-	var err error
+func (db *database) connect() error {
 
-	dbURL, ok := os.LookupEnv("DATABASE_URL")
-
-	if !ok {
-		log.Fatalln("$DATABASE_URL is required")
-	}
+	dbi, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
 
 	if err != nil {
-		log.Fatalf("Connection error: %s", err.Error())
+		log.Fatalf("Error opening database: %q", err)
 	}
 
-	port, ok := os.LookupEnv("PORT")
-
-	if !ok {
-		port = "8080"
-	}
-
-	db, err := sql.Open("postgres", dbURL)
-
-	err = db.Ping()
-
-	if err != nil {
-		return err
-	}
-
-	_, err = db.Exec(`
-    CREATE TABLE IF NOT EXISTS users (
-      id       SERIAL,
-      username VARCHAR(64) NOT NULL UNIQUE,
-      CHECK (CHAR_LENGTH(TRIM(username)) > 0)
-    );
-  `)
-
-	if err != nil {
-		return err
-	}
-
-	d.instance = db
+	db.instance = dbi
 
 	return err
 }

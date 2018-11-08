@@ -1,15 +1,22 @@
-package main
+package meetup
 
 import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"os"
 )
 
-//MeetupResponse contains the raw response from the API
-type MeetupResponse struct {
+func init() {
+}
+
+//Response contains the raw response from the API
+type Response struct {
 	Results []Meetup
 }
+
+//Meetups holds a slice of Meetup
+type Meetups []Meetup
 
 //Meetup contains meetup details
 type Meetup struct {
@@ -29,11 +36,7 @@ func (m *Meetup) save() error {
 	//save to database
 }
 
-func (ms *[]Meetup) saveAll() error {
-	//save to database
-}
-
-const secretKey = ""
+var secretKey = os.Getenv("MEETUP_API_KEY")
 
 var requestURL = fmt.Sprintf("https://api.meetup.com/2/open_events?key=%s&photo-host=public&category=34&status=upcoming&page=150&zip=94102&radius=5&only=name,group.who,group.name,time,event_url,yes_rsvp_count,venue,description", secretKey)
 
@@ -45,8 +48,8 @@ func GetMeetups() []Meetup {
 	}
 	defer resp.Body.Close()
 
-	var mr MeetupResponse
-	json.NewDecoder(resp.Body).Decode(&mr)
+	var r Response
+	json.NewDecoder(resp.Body).Decode(&r)
 
-	return mr.Results
+	return r.Results
 }

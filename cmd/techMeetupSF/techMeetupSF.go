@@ -6,15 +6,11 @@ import (
 )
 
 func main() {
-	fs := http.FileServer(http.Dir("../../client/static"))
+	fs := http.FileServer(http.Dir("static"))
 
 	http.Handle("/", fs)
 
-        port := os.Getenv("PORT")
+	port := os.Getenv("PORT")
 
-        if port == "" {
-          log.Fatal("$PORT must be set")
-        }
-
-        http.ListenAndServe(":" + port, nil)
+	http.ListenAndServe(":"+port, nil)
 }
