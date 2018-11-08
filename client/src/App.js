@@ -43,10 +43,7 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    const firstFetch = `https://api.meetup.com/2/open_events?key=${API}&photo-host=public&category=34&status=upcoming&page=${NUM_EVENTS}&zip=94102&radius=5&only=name,group.who,group.name,time,event_url,yes_rsvp_count,venue.name,description,venue.address_1,group.id`
-    const secondFetch = `https://api.meetup.com/2/open_events?key=${API}&photo-host=public&category=34&status=upcoming&page=${NUM_EVENTS_SECOND}&zip=94102&radius=5&only=name,group.who,group.name,time,event_url,yes_rsvp_count,venue.name,description,venue.address_1,group.id`
-
-    axios.get(firstFetch)
+    axios.get('/api/twentyEvents')
       .then(response => {
         const eventsFromWire = response.data.results;
         const events = parseResults(eventsFromWire);
@@ -55,7 +52,7 @@ class App extends Component {
           eventsByDate: events,
         });
       })
-    axios.get(secondFetch)
+    axios.get('/api/twoHundredEvents')
       .then(responseTwo => {
         let eventsFromWire = responseTwo.data.results;
         // eventsFromWire.splice(0, NUM_EVENTS);
