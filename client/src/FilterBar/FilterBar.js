@@ -35,8 +35,12 @@ const styles = theme => ({
     },
   },
   filterText: {
-    fontSize: '17px',
+    fontSize: '13px',
     fontWeight: 'bold',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+      fontSize: '17px',
+    },
   },
   rightLogo: {
     [theme.breakpoints.up('lg')]: {
