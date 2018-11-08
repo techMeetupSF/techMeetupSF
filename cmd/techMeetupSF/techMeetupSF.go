@@ -1,4 +1,4 @@
-package main
+package techMeetupSF
 
 import (
 	"net/http"
