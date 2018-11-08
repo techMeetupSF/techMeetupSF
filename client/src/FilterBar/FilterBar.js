@@ -65,7 +65,7 @@ class FilterBar extends React.Component {
             </Tabs>
           </div>
           <Tabs className={classes.rightLogo} value={showFood} onChange={handleFoodChange}>
-            <Tab className={ classes.filterText } label="Include No Food" />
+            <Tab className={ classes.filterText } label="All" />
             <Tab className={ classes.filterText } label="Catered Dinner" />
             <Tab className={ classes.filterText } label="Any Food" />
           </Tabs>
