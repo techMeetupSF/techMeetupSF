@@ -2,7 +2,7 @@
 	"comment": "",
 	"ignore": "test",
 	"heroku": {
-		"install": ["cmd/techMeetupSF/..."],
+		"install": ["./cmd/techMeetupSF/..."],
 		"goVersion": "go1.11"
 	},
 	"package": [
