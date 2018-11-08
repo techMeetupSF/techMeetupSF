@@ -46,30 +46,21 @@ const styles = theme => ({
 });
 
 class FilterBar extends React.Component {
-  state = {
-    over30Rsvp: 1,
-    foodType: 2
-  };
-
-  handleFoodChange = (event, value) => {
-    // this.setState({ value });
-  };
 
   render() {
-    const { classes, handleRsvpSwitch } = this.props;
-    const { over30Rsvp, foodType } = this.state;
+    const { classes, showThirtyPlus, showFood, handleRsvpSwitch, handleFoodChange } = this.props;
 
     return (
       <div className={classes.root}>
-        <AppBar position="static" primary={true} className={ classes.appBar }>
+        <AppBar position="static" className={ classes.appBar }>
           <div className="left-logo">
             <div className={ classes.logo }> TECH MEETUP SF </div>
-            <Tabs value={over30Rsvp} onChange={handleRsvpSwitch}>
+            <Tabs value={showThirtyPlus} onChange={handleRsvpSwitch}>
             <Tab className={ classes.filterText } label="0-30 RSVPs" />
             <Tab className={ classes.filterText } label="Only 30+ RSVPs" />
             </Tabs>
           </div>
-          <Tabs className={classes.rightLogo} value={foodType} onChange={this.handleFoodChange}>
+          <Tabs className={classes.rightLogo} value={showFood} onChange={handleFoodChange}>
             <Tab className={ classes.filterText } label="Include No Food" />
             <Tab className={ classes.filterText } label="Catered Dinner" />
             <Tab className={ classes.filterText } label="Any Food" />
