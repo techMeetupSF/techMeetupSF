@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
-import { API } from './env';
 import Date from './Date/Date';
 import IntroBar from './IntroBar/IntroBar';
 import MobileIntro from './IntroBar/MobileIntro';
@@ -11,7 +10,6 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import { parseResults } from './helpers/meetup_service';
 import { showWhichEvents } from './helpers/filter_service';
-import { NUM_EVENTS, NUM_EVENTS_SECOND } from './helpers/constants';
 
 
 const theme = createMuiTheme({
@@ -55,7 +53,6 @@ class App extends Component {
     axios.get('/api/twoHundredEvents')
       .then(responseTwo => {
         let eventsFromWire = responseTwo.data.results;
-        // eventsFromWire.splice(0, NUM_EVENTS);
         const events = parseResults(eventsFromWire);
 
         this.setState({
