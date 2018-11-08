@@ -9,13 +9,10 @@ import FilterBar from './FilterBar/FilterBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-<<<<<<< HEAD
-import { parseResults } from './helpers/meetup_service';
-import { showWhichEvents } from './helpers/filter_service';
-import { NUM_EVENTS, NUM_EVENTS_SECOND } from './helpers/constants';
-=======
 import { parseTimeIntoDate, doeshaveDinner, doeshaveFood, doeshavePizza, doeshaveDrinks, doeshaveThirtyRsvp } from './helpers/meetup_service';
 import { showWhichEvents } from './helpers/filter_service';
+<<<<<<< HEAD
+=======
 >>>>>>> f55b063... Filter bar is working
 
 
@@ -47,12 +44,28 @@ class App extends Component {
     this.handleRsvpSwitch = this.handleRsvpSwitch.bind(this);
   }
 
-<<<<<<< HEAD
 =======
   handleFoodChange(e, showFood) {
     e.preventDefault();
     let eventsByDate = this.state.eventsByDate;
     eventsByDate = showWhichEvents(eventsByDate, this.state.showThirtyPlus, showFood);
+
+    this.setState({
+      showFood,
+      eventsByDate,
+    });
+  };
+
+  handleRsvpSwitch(e, showThirtyPlus) {
+    e.preventDefault();
+    let eventsByDate = this.state.eventsByDate;
+    eventsByDate = showWhichEvents(eventsByDate, showThirtyPlus, this.state.showFood);
+
+    this.setState({
+      showThirtyPlus,
+      eventsByDate,
+    });
+  };
 
     this.setState({
       showFood,
