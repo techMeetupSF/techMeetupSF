@@ -14,14 +14,19 @@ func init() {
 }
 
 //DB holds singlton database instance and functions
-var DB database
+var DB Database
 
-//DB holds an instance of the database connection
-type database struct {
-	instance *sql.DB
+//GetDatabase returns the singelton instance of database
+func GetDatabase() Database {
+	return DB
 }
 
-func (db *database) connect() error {
+//Database holds an instance of the database connection
+type Database struct {
+	Instance *sql.DB
+}
+
+func (db *Database) connect() error {
 
 	dbi, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
 
@@ -29,7 +34,7 @@ func (db *database) connect() error {
 		log.Fatalf("Error opening database: %q", err)
 	}
 
-	db.instance = dbi
+	db.Instance = dbi
 
 	return err
 }

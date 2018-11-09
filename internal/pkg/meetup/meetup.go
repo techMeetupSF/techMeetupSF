@@ -3,16 +3,18 @@ package meetup
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
+
+	"github.com/techMeetupSF/techMeetupSF/internal/pkg/db"
 )
 
-func init() {
-}
+var database db.Database
 
-//Response contains the raw response from the API
-type Response struct {
-	Results []Meetup
+//APIResponse contains the raw response from the API
+type APIResponse struct {
+	Results Meetups
 }
 
 //Meetups holds a slice of Meetup
@@ -20,11 +22,16 @@ type Meetups []Meetup
 
 //Meetup contains meetup details
 type Meetup struct {
-	Name  string `json:"name"`
-	Venue Venue  `json:"venue"`
+	Name        string `json:"name"`
+	Group       group  `json:"group"`
+	Venue       Venue  `json:"venue"`
+	Description string `json:"description"`
+	RsvpCount   int    `json:"yes_rsvp_count"`
+	Time        int64  `json:"time"`
+	URL         string `json:"event_url"`
 }
 
-//Venue contains venue details
+//Venue is the meetup.com's venue model
 type Venue struct {
 	Name         string `json:"name"`
 	AddressLine1 string `json:"address_1"`
@@ -32,24 +39,37 @@ type Venue struct {
 	AddressLine3 string `json:"address_3"`
 }
 
-func (m *Meetup) save() error {
-	//save to database
+type group struct {
+	Name string `json:"name"`
 }
 
 var secretKey = os.Getenv("MEETUP_API_KEY")
 
-var requestURL = fmt.Sprintf("https://api.meetup.com/2/open_events?key=%s&photo-host=public&category=34&status=upcoming&page=150&zip=94102&radius=5&only=name,group.who,group.name,time,event_url,yes_rsvp_count,venue,description", secretKey)
+var requestURL = fmt.Sprintf("https://api.meetup.com/2/open_events?key=%s&photo-host=public&category=34&status=upcoming&page=150&zip=94102&radius=5&text_format=plain", secretKey)
 
-//GetMeetups fetches new meetups from the API
-func GetMeetups() []Meetup {
+//FetchMeetups fetches new meetups from the API
+func FetchMeetups() []Meetup {
+
+	var err error
+
 	resp, err := http.Get(requestURL)
+
 	if err != nil {
-		panic(err)
+		log.Print(err)
 	}
+
+	log.Print("Request sent to Meetup.com, response code: ", resp.StatusCode)
+
 	defer resp.Body.Close()
 
-	var r Response
-	json.NewDecoder(resp.Body).Decode(&r)
+	var r APIResponse
 
+	err = json.NewDecoder(resp.Body).Decode(&r)
+
+	if err != nil {
+		log.Print(err)
+	}
+
+	log.Printf("Recived %d Meetups from the API", len(r.Results))
 	return r.Results
 }
