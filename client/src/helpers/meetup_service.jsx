@@ -78,6 +78,7 @@ export const parseResults = (events) => {
     e.dateStamp = dateStamp;
     eventsByTime[MMDD] = eventsByTime[MMDD] || [];
 
+    if (!e.description) e.description = ".";
     e.description = e.description.toLowerCase();
     e.hasCateredDinner = doeshaveDinner(e);
     e.hasFood = doeshaveFood(e);
