@@ -1,3 +1,9 @@
+### Use techmeetupSF.com to:
+
++ Find High Quality Tech Conversation
++ Network with companies who want to hire NOW!
++ Find the BEST catered food in San Francisco
+
 ### What we do?
 
 [TechMeetupSF](http://www.techmeetupsf.com) is a site for tech meetup discovery.  Not all tech meetups are created equal.  Our goal is to simplifty the process of finding upcoming technically relevant meetups with the best catered food in San Francisco, the tech capital of the world.  Why Meetup.com has decided to make this a difficult process is beyond me.  
