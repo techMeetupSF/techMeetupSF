@@ -4,6 +4,8 @@ import (
 	"log"
 	"net/http"
 	"os"
+
+	techmeetupapi "github.com/techMeetupSF/techMeetupSF/internal/pkg/techMeetupAPI"
 )
 
 func main() {
@@ -11,6 +13,7 @@ func main() {
 	fs := http.FileServer(http.Dir("./web"))
 
 	http.Handle("/", fs)
+	http.HandleFunc("/meetups", techmeetupapi.Handler)
 
 	port := os.Getenv("PORT")
 

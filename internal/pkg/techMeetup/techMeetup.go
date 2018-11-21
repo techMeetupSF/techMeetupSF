@@ -23,39 +23,6 @@ func init() {
 	}
 }
 
-// func techMeetupEndpointHandler(w http.ResponseWriter, r *http.Request) {
-// 	v := r.URL.Query()
-
-// 	rsvpMin, err := strconv.Atoi(v["rsvpMin"][0])
-
-// 	if err != nil {
-// 		log.Print(err)
-// 	}
-
-// 	pageNumber, err := strconv.Atoi(v["pageNumber"][0])
-
-// 	if err != nil {
-// 		log.Print(err)
-// 	}
-
-// 	pageSize, err := strconv.Atoi(v["pageSize"][0])
-
-// 	if err != nil {
-// 		log.Print(err)
-// 	}
-
-// 	mq := techMeetupQuery{
-// 		tags:       v["tags"],
-// 		rsvpMin:    rsvpMin,
-// 		pageSize:   pageSize,
-// 		pageNumber: pageNumber,
-// 		sortBy:     v["sortBy"][0],
-// 	}
-
-// 	w.Write()
-
-// }
-
 //TechMeetup holds everything related to a tech meetup
 type TechMeetup struct {
 	Venue     venue.Venue
@@ -68,24 +35,73 @@ type TechMeetup struct {
 //TechMeetups holds the result list of meetups
 type TechMeetups []TechMeetup
 
-type techMeetupQuery struct {
-	tags       []string
-	rsvpMin    int
-	pageSize   int
-	pageNumber int
-	sortBy     string
-	time       time.Time
+//Query describes filters, paging and sorting requirments
+type Query struct {
+	Tags       []string
+	MinRSVP    int
+	PageSize   int
+	PageNumber int
+	SortBy     string
+	Time       time.Time
 }
 
-//UpdateTechMeetups will update the current list in techmeetup
-func UpdateTechMeetups() {
+//Query a slice of TechMeetup
+func (tms *TechMeetups) Query(q Query) *TechMeetups {
+	ftms := TechMeetups{}
+
+	ftms = filterByMinRSVP(tms, q.MinRSVP)
+	ftms = page(&ftms, q.PageSize, q.PageNumber)
+
+	return &ftms
+}
+
+func filterByMinRSVP(tms *TechMeetups, minRSVP int) TechMeetups {
+
+	ftms := TechMeetups{}
+
+	for _, tm := range *tms {
+		if tm.RsvpCount >= minRSVP {
+			ftms = append(ftms, tm)
+		}
+	}
+
+	return ftms
+}
+
+func page(tms *TechMeetups, size int, number int) TechMeetups {
+
+	if size == 0 {
+		size = 1
+	}
+
+	if number == 0 {
+		number = 1
+	}
+
+	first := size * number
+	last := first + size
+	tmsLastItem := len(*tms) - 1
+
+	if tmsLastItem < first {
+		return TechMeetups{}
+	}
+
+	if tmsLastItem < last {
+		last = tmsLastItem
+	}
+
+	return (*tms)[first : last+1]
+
+}
+
+//Get will update the current list in techmeetup
+func Get() TechMeetups {
 
 	ms := meetup.FetchMeetups()
 
 	tms := meetupsToTechMeetups(ms)
 
-	println(len(tms))
-
+	return tms
 }
 
 func meetupsToTechMeetups(ms meetup.Meetups) TechMeetups {
