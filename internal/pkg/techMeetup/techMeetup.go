@@ -1,6 +1,7 @@
 package techmeetup
 
 import (
+	"math"
 	"regexp"
 	"time"
 
@@ -47,42 +48,48 @@ type Query struct {
 
 //QueryResult is the returned struct when querying the meetups
 type QueryResult struct {
-	Meetups         *TechMeetups
-	Showing         int
-	Total           int
-	UnfilteredTotal int
-	UniqueTags      []string
+	Meetups    *TechMeetups
+	Page       Page
+	UniqueTags []string
+}
+
+//Page has page number, total pages and more
+type Page struct {
+	PageLength   int
+	PageNumber   int
+	TotalPages   int
+	TotalMeetups int
 }
 
 //Query a slice of TechMeetup
 func (tms *TechMeetups) Query(q Query) QueryResult {
 
-	totalLen := len(*tms)
-
 	ftms := filterTechMeetups(tms, q)
 
-	totalFilteredLen := len(*ftms)
-
-	*ftms = page(ftms, q.PageSize, q.PageNumber)
-
-	pageLen := len(*ftms)
+	ftms, p := page(ftms, q.PageSize, q.PageNumber)
 
 	tags := findUniqueTags(ftms)
 
 	qr := QueryResult{
-		Meetups:         ftms,
-		Showing:         pageLen,
-		Total:           totalFilteredLen,
-		UnfilteredTotal: totalLen,
-		UniqueTags:      tags,
+		Meetups:    ftms,
+		Page:       p,
+		UniqueTags: tags,
 	}
 
 	return qr
 }
 
 func filterTechMeetups(tms *TechMeetups, q Query) *TechMeetups {
-	ftms := filterByMinRSVP(tms, q.MinRSVP)
-	ftms = filterByTags(tms, q.Tags)
+
+	ftms := tms
+
+	if q.MinRSVP > 0 {
+		ftms = filterByMinRSVP(tms, q.MinRSVP)
+	}
+
+	if len(q.Tags) > 0 {
+		ftms = filterByTags(tms, q.Tags)
+	}
 
 	return ftms
 }
@@ -139,29 +146,42 @@ func filterByMinRSVP(tms *TechMeetups, minRSVP int) *TechMeetups {
 	return &ftms
 }
 
-func page(tms *TechMeetups, size int, number int) TechMeetups {
+func page(tms *TechMeetups, size int, number int) (*TechMeetups, Page) {
 
 	if size == 0 {
-		size = 1
+		size = 40
 	}
 
 	if number == 0 {
 		number = 1
 	}
 
-	first := size * number
-	last := (first + size) - 1
+	last := size * number
+	first := last - size
 	tmsLastItem := len(*tms) - 1
 
 	if tmsLastItem < first {
-		return TechMeetups{}
+		return &TechMeetups{}, Page{}
 	}
 
 	if tmsLastItem < last {
 		last = tmsLastItem
 	}
 
-	return (*tms)[first : last+1]
+	ptms := (*tms)[first:last]
+
+	pageLength := len(ptms)
+	totalMeeups := len(*tms)
+	totalPages := int(math.Ceil(float64(totalMeeups) / float64(size)))
+
+	p := Page{
+		PageLength:   pageLength,
+		PageNumber:   number,
+		TotalPages:   totalPages,
+		TotalMeetups: totalMeeups,
+	}
+
+	return &ptms, p
 
 }
 
