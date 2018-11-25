@@ -45,17 +45,88 @@ type Query struct {
 	Time       time.Time
 }
 
+//QueryResult is the returned struct when querying the meetups
+type QueryResult struct {
+	Meetups         *TechMeetups
+	Showing         int
+	Total           int
+	UnfilteredTotal int
+	UniqueTags      []string
+}
+
 //Query a slice of TechMeetup
-func (tms *TechMeetups) Query(q Query) *TechMeetups {
+func (tms *TechMeetups) Query(q Query) QueryResult {
+
+	totalLen := len(*tms)
+
+	ftms := filterTechMeetups(tms, q)
+
+	totalFilteredLen := len(*ftms)
+
+	*ftms = page(ftms, q.PageSize, q.PageNumber)
+
+	pageLen := len(*ftms)
+
+	tags := findUniqueTags(ftms)
+
+	qr := QueryResult{
+		Meetups:         ftms,
+		Showing:         pageLen,
+		Total:           totalFilteredLen,
+		UnfilteredTotal: totalLen,
+		UniqueTags:      tags,
+	}
+
+	return qr
+}
+
+func filterTechMeetups(tms *TechMeetups, q Query) *TechMeetups {
+	ftms := filterByMinRSVP(tms, q.MinRSVP)
+	ftms = filterByTags(tms, q.Tags)
+
+	return ftms
+}
+
+func filterByTags(tms *TechMeetups, tags []string) *TechMeetups {
 	ftms := TechMeetups{}
 
-	ftms = filterByMinRSVP(tms, q.MinRSVP)
-	ftms = page(&ftms, q.PageSize, q.PageNumber)
+	tagsMap := map[string]bool{}
+
+	for _, tag := range tags {
+		tagsMap[tag] = true
+	}
+
+	for _, tm := range *tms {
+		for _, tag := range tm.Tags {
+			if _, ok := tagsMap[tag]; ok {
+				ftms = append(ftms, tm)
+				break
+			}
+		}
+	}
 
 	return &ftms
 }
 
-func filterByMinRSVP(tms *TechMeetups, minRSVP int) TechMeetups {
+func findUniqueTags(tms *TechMeetups) []string {
+	uniqueTags := map[string]bool{}
+
+	for _, tm := range *tms {
+		for _, tag := range tm.Tags {
+			uniqueTags[tag] = true
+		}
+	}
+
+	tags := []string{}
+
+	for utag := range uniqueTags {
+		tags = append(tags, utag)
+	}
+
+	return tags
+}
+
+func filterByMinRSVP(tms *TechMeetups, minRSVP int) *TechMeetups {
 
 	ftms := TechMeetups{}
 
@@ -65,7 +136,7 @@ func filterByMinRSVP(tms *TechMeetups, minRSVP int) TechMeetups {
 		}
 	}
 
-	return ftms
+	return &ftms
 }
 
 func page(tms *TechMeetups, size int, number int) TechMeetups {
@@ -79,7 +150,7 @@ func page(tms *TechMeetups, size int, number int) TechMeetups {
 	}
 
 	first := size * number
-	last := first + size
+	last := (first + size) - 1
 	tmsLastItem := len(*tms) - 1
 
 	if tmsLastItem < first {

@@ -13,10 +13,15 @@ var tmsCache techmeetup.TechMeetups
 
 func init() {
 	tmsCache = techmeetup.Get()
+
+	// t := time.NewTicker(time.Hour)
+	// v := <-t.C
 }
 
 //Handler will handle queries for techMeeups
 func Handler(w http.ResponseWriter, r *http.Request) {
+
+	w.Header().Set("Content-Type", "application/json")
 
 	tmq := getQueryFromRequest(r)
 
@@ -34,32 +39,40 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 func getQueryFromRequest(r *http.Request) techmeetup.Query {
 
-	v := r.URL.Query()
-
-	rsvpMin, err := strconv.Atoi(v["rsvpMin"][0])
+	err := r.ParseForm()
 
 	if err != nil {
 		log.Print(err)
 	}
 
-	pageNumber, err := strconv.Atoi(v["pageNumber"][0])
+	tags := r.Form["tags"]
+
+	sortBy := r.Form.Get("sortBy")
+
+	rsvpMin, err := strconv.Atoi(r.Form.Get("rsvpMin"))
 
 	if err != nil {
 		log.Print(err)
 	}
 
-	pageSize, err := strconv.Atoi(v["pageSize"][0])
+	pageNumber, err := strconv.Atoi(r.Form.Get("pageNumber"))
+
+	if err != nil {
+		log.Print(err)
+	}
+
+	pageSize, err := strconv.Atoi(r.Form.Get("pageSize"))
 
 	if err != nil {
 		log.Print(err)
 	}
 
 	mq := techmeetup.Query{
-		Tags:       v["tags"],
+		Tags:       tags,
 		MinRSVP:    rsvpMin,
 		PageSize:   pageSize,
 		PageNumber: pageNumber,
-		SortBy:     v["sortBy"][0],
+		SortBy:     sortBy,
 	}
 
 	return mq
