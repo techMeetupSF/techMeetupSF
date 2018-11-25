@@ -31,6 +31,7 @@ type TechMeetup struct {
 	Datetime  time.Time
 	RsvpCount int
 	Tags      []string
+	URL       string
 }
 
 //TechMeetups holds the result list of meetups
@@ -207,6 +208,7 @@ func meetupsToTechMeetups(ms meetup.Meetups) TechMeetups {
 		tm.Datetime = milisecondToTime(m.Time)
 		tm.Tags = findTagsInMeetup(&m)
 		tm.Venue = venue.FromMeetupVenue(m.Venue)
+		tm.URL = m.URL
 
 		tms = append(tms, tm)
 	}

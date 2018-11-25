@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"time"
 
 	techmeetup "github.com/techMeetupSF/techMeetupSF/internal/pkg/techMeetup"
 )
@@ -12,10 +13,18 @@ import (
 var tmsCache techmeetup.TechMeetups
 
 func init() {
+
 	tmsCache = techmeetup.Get()
 
-	// t := time.NewTicker(time.Hour)
-	// v := <-t.C
+	go func() {
+		t := time.NewTicker(time.Minute)
+
+		for range t.C {
+			log.Println("Next update to Meetups in two hours")
+			tmsCache = techmeetup.Get()
+		}
+	}()
+
 }
 
 //Handler will handle queries for techMeeups
