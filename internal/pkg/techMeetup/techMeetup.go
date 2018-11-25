@@ -159,7 +159,7 @@ func page(tms *TechMeetups, size int, number int) (*TechMeetups, Page) {
 
 	last := size * number
 	first := last - size
-	tmsLastItem := len(*tms) - 1
+	tmsLastItem := len(*tms)
 
 	if tmsLastItem < first {
 		return &TechMeetups{}, Page{}
