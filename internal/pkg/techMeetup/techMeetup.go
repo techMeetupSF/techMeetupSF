@@ -26,6 +26,7 @@ func init() {
 		"VR":         regexp.MustCompile("(?i) vr |virtual reality"),
 		"Kubernetes": regexp.MustCompile("(?i)kubernetes"),
 		"Golang":     regexp.MustCompile("((?i)golang)|Go"),
+		"Blockchain": regexp.MustCompile("(?i)blockchain|bitcoin|cryptocurrency"),
 	}
 }
 
@@ -95,7 +96,7 @@ func filterTechMeetups(tms *TechMeetups, q Query) *TechMeetups {
 	}
 
 	if len(q.Tags) > 0 {
-		ftms = filterByTags(tms, q.Tags)
+		ftms = filterByTags(ftms, q.Tags)
 	}
 
 	return ftms
