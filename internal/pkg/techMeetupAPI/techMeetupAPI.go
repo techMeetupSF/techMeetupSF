@@ -17,7 +17,7 @@ func init() {
 	tmsCache = techmeetup.Get()
 
 	go func() {
-		t := time.NewTicker(time.Minute)
+		t := time.NewTicker(time.Hour * 2)
 
 		for range t.C {
 			log.Println("Next update to Meetups in two hours")
