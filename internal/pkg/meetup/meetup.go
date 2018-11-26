@@ -23,7 +23,7 @@ type Meetups []Meetup
 //Meetup contains meetup details
 type Meetup struct {
 	Name        string `json:"name"`
-	Group       group  `json:"group"`
+	Group       Group  `json:"group"`
 	Venue       Venue  `json:"venue"`
 	Description string `json:"description"`
 	RsvpCount   int    `json:"yes_rsvp_count"`
@@ -39,7 +39,8 @@ type Venue struct {
 	AddressLine3 string `json:"address_3"`
 }
 
-type group struct {
+//Group holds the meetup.com's group name
+type Group struct {
 	Name string `json:"name"`
 }
 
