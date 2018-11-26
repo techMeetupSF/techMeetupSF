@@ -228,9 +228,14 @@ func meetupsToTechMeetups(ms meetup.Meetups) TechMeetups {
 }
 
 func milisecondToTime(mili int64) time.Time {
-	t := time.Unix(0, mili*int64(time.Millisecond))
+	nanoseconds := milisecondsToNanoseconds(mili)
+	t := time.Unix(0, nanoseconds)
 
 	return t
+}
+
+func milisecondsToNanoseconds(mili int64) int64 {
+	return mili * 1000000
 }
 
 func findTagsInMeetup(m *meetup.Meetup) []string {
