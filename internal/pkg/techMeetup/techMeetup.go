@@ -16,11 +16,15 @@ var tagsRegex map[string]*regexp.Regexp
 
 func init() {
 	tagsRegex = map[string]*regexp.Regexp{
-		"Food":   regexp.MustCompile("(?i)food|meal"),
-		"Pizza":  regexp.MustCompile("(?i)pizza"),
-		"Booz":   regexp.MustCompile("(?i)booz|drinks|alcohol"),
-		"React":  regexp.MustCompile("(?i)react"),
-		"Golang": regexp.MustCompile("(?i)go|golang"),
+		"Food":       regexp.MustCompile("(?i)food|meal"),
+		"Pizza":      regexp.MustCompile("(?i)pizza"),
+		"Booz":       regexp.MustCompile("(?i)booz|drinks| alcohol"),
+		"React":      regexp.MustCompile("(?i)react"),
+		"Angular":    regexp.MustCompile("(?i)angular "),
+		"Docker":     regexp.MustCompile("(?i)docker "),
+		"VR":         regexp.MustCompile("(?i) vr |virtual reality"),
+		"Kubernetes": regexp.MustCompile("(?i)kubernetes"),
+		"Golang":     regexp.MustCompile("((?i)golang)|Go"),
 	}
 }
 
@@ -32,6 +36,7 @@ type TechMeetup struct {
 	RsvpCount int
 	Tags      []string
 	URL       string
+	GroupName string
 }
 
 //TechMeetups holds the result list of meetups
@@ -209,6 +214,7 @@ func meetupsToTechMeetups(ms meetup.Meetups) TechMeetups {
 		tm.Tags = findTagsInMeetup(&m)
 		tm.Venue = venue.FromMeetupVenue(m.Venue)
 		tm.URL = m.URL
+		tm.GroupName = m.Group.Name
 
 		tms = append(tms, tm)
 	}
