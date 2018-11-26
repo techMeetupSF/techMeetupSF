@@ -49,7 +49,7 @@ var secretKey = os.Getenv("MEETUP_API_KEY")
 var requestURL = fmt.Sprintf("https://api.meetup.com/2/open_events?key=%s&photo-host=public&category=34&status=upcoming&page=150&zip=94102&radius=5&text_format=plain", secretKey)
 
 //FetchMeetups fetches new meetups from the API
-func FetchMeetups() []Meetup {
+func FetchMeetups() ([]Meetup, error) {
 
 	var err error
 
@@ -72,5 +72,5 @@ func FetchMeetups() []Meetup {
 	}
 
 	log.Printf("Recived %d Meetups from the API", len(r.Results))
-	return r.Results
+	return r.Results, err
 }

@@ -14,17 +14,27 @@ var tmsCache techmeetup.TechMeetups
 
 func init() {
 
-	tmsCache = techmeetup.Get()
+	updateCache()
 
 	go func() {
 		t := time.NewTicker(time.Hour * 2)
 
 		for range t.C {
 			log.Println("Next update to Meetups in two hours")
-			tmsCache = techmeetup.Get()
+			updateCache()
 		}
 	}()
 
+}
+
+func updateCache() {
+	newTms, err := techmeetup.Get()
+
+	if err != nil {
+		log.Print("Ignoring new techMeetups due to error")
+	} else {
+		tmsCache = newTms
+	}
 }
 
 //Handler will handle queries for techMeeups

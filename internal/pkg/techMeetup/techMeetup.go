@@ -1,6 +1,7 @@
 package techmeetup
 
 import (
+	"log"
 	"math"
 	"regexp"
 	"time"
@@ -192,13 +193,17 @@ func page(tms *TechMeetups, size int, number int) (*TechMeetups, Page) {
 }
 
 //Get will update the current list in techmeetup
-func Get() TechMeetups {
+func Get() (TechMeetups, error) {
 
-	ms := meetup.FetchMeetups()
+	ms, err := meetup.FetchMeetups()
+
+	if err != nil {
+		log.Print("Error when fetching meetups :", err)
+	}
 
 	tms := meetupsToTechMeetups(ms)
 
-	return tms
+	return tms, err
 }
 
 func meetupsToTechMeetups(ms meetup.Meetups) TechMeetups {
