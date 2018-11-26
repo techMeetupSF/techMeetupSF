@@ -9,11 +9,9 @@ import FilterBar from './FilterBar/FilterBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-import { parseTimeIntoDate, doeshaveDinner, doeshaveFood, doeshavePizza, doeshaveDrinks, doeshaveThirtyRsvp } from './helpers/meetup_service';
+import { parseResults } from './helpers/meetup_service';
 import { showWhichEvents } from './helpers/filter_service';
-<<<<<<< HEAD
-=======
->>>>>>> f55b063... Filter bar is working
+
 
 
 const theme = createMuiTheme({
@@ -44,7 +42,7 @@ class App extends Component {
     this.handleRsvpSwitch = this.handleRsvpSwitch.bind(this);
   }
 
-=======
+
   handleFoodChange(e, showFood) {
     e.preventDefault();
     let eventsByDate = this.state.eventsByDate;
@@ -84,18 +82,14 @@ class App extends Component {
     });
   };
 
-
->>>>>>> f55b063... Filter bar is working
   componentDidMount = () => {
     const firstFetch = `https://api.meetup.com/2/open_events?key=${API}&photo-host=public&category=34&status=upcoming&page=${NUM_EVENTS}&zip=94102&radius=5&only=name,group.who,group.name,time,event_url,yes_rsvp_count,venue.name,description,venue.address_1,group.id`
     const secondFetch = `https://api.meetup.com/2/open_events?key=${API}&photo-host=public&category=34&status=upcoming&page=${NUM_EVENTS_SECOND}&zip=94102&radius=5&only=name,group.who,group.name,time,event_url,yes_rsvp_count,venue.name,description,venue.address_1,group.id`
-
-    axios.get(firstFetch)
+     axios.get(firstFetch)
       .then(response => {
         const eventsFromWire = response.data.results;
         const events = parseResults(eventsFromWire);
-
-        this.setState({
+         this.setState({
           eventsByDate: events,
         });
       })
@@ -104,12 +98,12 @@ class App extends Component {
         let eventsFromWire = responseTwo.data.results;
         // eventsFromWire.splice(0, NUM_EVENTS);
         const events = parseResults(eventsFromWire);
-
-        this.setState({
+         this.setState({
           eventsByDate: events,
         });
       })
   }
+
 
   handleFoodChange(e, showFood) {
     e.preventDefault();
