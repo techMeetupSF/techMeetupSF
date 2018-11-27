@@ -69,22 +69,29 @@ const parseTimeIntoDate = (milliseconds) => {
   };
 };
 
+// :
+// Datetime: "2018-11-27T02:00:00Z"
+// GroupName: "Microsoft HoloLens and Mixed Reality"
+// Name: "Mixed Reality Workgroup"
+// RsvpCount: 32
+// Tags: ["React"]
+// URL: "https://www.meetup.com/hololens-mr/events/256390437/"
+// Venue: {Name: "Microsoft Reactor"}
+
 export const parseResults = (events) => {
   const eventsByTime = {};
   for (const e of events) {
-    const { MMDD, dayofWeek, timeStamp, dateStamp } = parseTimeIntoDate(e.time);
+    const { MMDD, dayofWeek, timeStamp, dateStamp } = parseTimeIntoDate(e.Datetime);
     e.dayofWeek = dayofWeek;
     e.timeStamp = timeStamp;
     e.dateStamp = dateStamp;
     eventsByTime[MMDD] = eventsByTime[MMDD] || [];
 
-    if (!e.description) e.description = ".";
-    e.description = e.description.toLowerCase();
-    e.hasCateredDinner = doeshaveDinner(e);
-    e.hasFood = doeshaveFood(e);
-    e.hasPizza = doeshavePizza(e);
-    e.hasDrinks = doeshaveDrinks(e);
-    e.hasThirtyRsvp = doeshaveThirtyRsvp(e);
+    e.hasFood = e.Tags.includes('Food');
+    e.hasCateredDinner = e.hasFood;
+    e.hasPizza = e.Tags.includes('Pizza');
+    e.hasDrinks = e.Tags.includes('Booz');
+    e.hasThirtyRsvp = e.RsvpCount > 30;
     e.showEvent = e.hasThirtyRsvp;
 
     eventsByTime[MMDD].push(e);

@@ -65,12 +65,6 @@ class App extends Component {
     });
   };
 
-    this.setState({
-      showFood,
-      eventsByDate,
-    });
-  };
-
   handleRsvpSwitch(e, showThirtyPlus) {
     e.preventDefault();
     let eventsByDate = this.state.eventsByDate;
@@ -83,25 +77,16 @@ class App extends Component {
   };
 
   componentDidMount = () => {
-    const firstFetch = `https://api.meetup.com/2/open_events?key=${API}&photo-host=public&category=34&status=upcoming&page=${NUM_EVENTS}&zip=94102&radius=5&only=name,group.who,group.name,time,event_url,yes_rsvp_count,venue.name,description,venue.address_1,group.id`
-    const secondFetch = `https://api.meetup.com/2/open_events?key=${API}&photo-host=public&category=34&status=upcoming&page=${NUM_EVENTS_SECOND}&zip=94102&radius=5&only=name,group.who,group.name,time,event_url,yes_rsvp_count,venue.name,description,venue.address_1,group.id`
-     axios.get(firstFetch)
+    const goBackend = 'https://techmeetupsanfrancisco.herokuapp.com/meetups?rsvpMin=0&pageNumber=0&pageSize=150&sortBy=date';
+     axios.get(goBackend)
       .then(response => {
-        const eventsFromWire = response.data.results;
+        const eventsFromWire = response.data.Meetups;
         const events = parseResults(eventsFromWire);
          this.setState({
           eventsByDate: events,
         });
       })
-    axios.get(secondFetch)
-      .then(responseTwo => {
-        let eventsFromWire = responseTwo.data.results;
-        // eventsFromWire.splice(0, NUM_EVENTS);
-        const events = parseResults(eventsFromWire);
-         this.setState({
-          eventsByDate: events,
-        });
-      })
+
   }
 
 

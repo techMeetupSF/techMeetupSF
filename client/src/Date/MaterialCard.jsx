@@ -18,16 +18,26 @@ class MaterialCard extends Component {
   //     })
   // }
 
+  // :
+  // Datetime: "2018-11-27T02:00:00Z"
+  // GroupName: "Microsoft HoloLens and Mixed Reality"
+  // Name: "Mixed Reality Workgroup"
+  // RsvpCount: 32
+  // Tags: ["React"]
+  // URL: "https://www.meetup.com/hololens-mr/events/256390437/"
+  // Venue: {Name: "Microsoft Reactor"}
+
+
   render() {
     const event = this.props.event;
-    const organizer = event.group.name;
-    const eventName = event.name;
+    const organizer = event.GroupName;
+    const eventName = event.Name;
 
-    const rsvpCount = event.yes_rsvp_count;
-    const memberName = event.group.who;
+    const rsvpCount = event.RsvpCount;
+    const memberName = '';
     const numberGoing = rsvpCount + " " + memberName + " going at " + event.timeStamp;
 
-    const venue = event.venue || '';
+    const venue = event.Venue || '';
     const hostCompany =  venue.name || null;
 
     let foodType = null;
@@ -42,7 +52,7 @@ class MaterialCard extends Component {
     }
 
     return (
-      <a href={event.event_url} target="_blank" rel="noopener noreferrer" className='not_link padded'>
+      <a href={event.URL} target="_blank" rel="noopener noreferrer" className='not_link padded'>
         <Card className='material_card'>
            <CardActionArea className='material_height'>
              <CardContent>
