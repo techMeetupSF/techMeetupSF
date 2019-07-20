@@ -1,8 +1,7 @@
 ### Use techmeetupSF.com to:
 
-+ Find High Quality Tech Conversation
-+ Network with companies who want to hire NOW!
-+ Find the BEST catered food in San Francisco
++ Find your favorite most popular topics, filtering by # of RSVP
++ Find free food!
 
 ### What we do?
 
