@@ -11,11 +11,6 @@ There are hundreds of tech meetups in San Francisco every week with no way to fi
 
 We thank you for your support.  Please send feedback to Niko.
 
-### Use techmeetupSF.com to:
-
-+ Find High Quality Tech Conversation
-+ Network with companies who want to hire NOW!
-+ Find the BEST catered food in San Francisco
 
 ### Contributors 
 
